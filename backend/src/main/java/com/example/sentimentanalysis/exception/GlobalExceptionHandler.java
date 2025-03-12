@@ -5,12 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.RestClientException;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Global exception handler for the application.
+ * This is an updated version that includes handling for our custom exceptions.
  */
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -36,6 +38,34 @@ public class GlobalExceptionHandler {
     }
     
     /**
+     * Handles SentimentAnalysisException.
+     * 
+     * @param ex The custom sentiment analysis exception
+     * @return ResponseEntity with the error message and HTTP 500 status
+     */
+    @ExceptionHandler(SentimentAnalysisException.class)
+    public ResponseEntity<Object> handleSentimentAnalysisException(SentimentAnalysisException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        error.put("error", "Sentiment Analysis Error");
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    
+    /**
+     * Handles RestClientException for when the ML service is unavailable.
+     * 
+     * @param ex The exception thrown when REST requests fail
+     * @return ResponseEntity with the error message and HTTP 503 status
+     */
+    @ExceptionHandler(RestClientException.class)
+    public ResponseEntity<Object> handleRestClientException(RestClientException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", "ML service unavailable: " + ex.getMessage());
+        error.put("error", "External Service Error");
+        return new ResponseEntity<>(error, HttpStatus.SERVICE_UNAVAILABLE);
+    }
+    
+    /**
      * Fallback handler for any unhandled exceptions.
      * This provides a generic error response for unexpected errors.
      * 
@@ -46,6 +76,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Object> handleGenericException(Exception ex) {
         Map<String, String> error = new HashMap<>();
         error.put("message", ex.getMessage());
+        error.put("error", "Internal Server Error");
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

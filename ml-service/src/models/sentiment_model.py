@@ -150,8 +150,8 @@ class SentimentAnalyzer:
         
         return {
             "text": text,
-            "sentiment": sentiment,
-            "confidence": confidence,
+            "label": sentiment,
+            "score": confidence,
             "probabilities": {
                 label: score for label, score in zip(self.labels, probabilities)
             }
