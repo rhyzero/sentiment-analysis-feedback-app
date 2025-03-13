@@ -7,3 +7,4 @@ transformers
 flask-cors
 gunicorn
 pytest
+torch
