@@ -1,0 +1,61 @@
+.charts-dashboard {
+  margin: 2rem 0;
+}
+
+.charts-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.chart-container {
+  flex: 1 1 calc(50% - 1rem);
+  min-width: 300px;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.chart-container h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+/* Custom tooltip styles */
+.recharts-tooltip-wrapper {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Legend styles */
+.recharts-legend-item-text {
+  font-size: 0.9rem;
+}
+
+/* Custom colors for different sentiments */
+.positive-bar {
+  fill: #4caf50;
+}
+
+.neutral-bar {
+  fill: #2196f3;
+}
+
+.negative-bar {
+  fill: #f44336;
+}
+
+@media (max-width: 768px) {
+  .charts-row {
+    flex-direction: column;
+  }
+
+  .chart-container {
+    min-width: 100%;
+  }
+}
