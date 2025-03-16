@@ -105,14 +105,6 @@ cd frontend
 npm install
 ```
 
-#### Configure API URL
-
-Create a `.env` file in the frontend directory:
-
-```
-VITE_API_URL=http://localhost:8080/api
-```
-
 #### Run the Frontend
 
 ```bash
@@ -158,7 +150,7 @@ The system includes a fallback sentiment analysis method if the ML service is un
 
 ### Frontend Issues
 
-- Verify the API URL in the .env file
+- Verify the API URL in the Api.js file
 - Check browser console for CORS or API errors
 - Ensure Node.js version is compatible
 
